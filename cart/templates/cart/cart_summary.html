@@ -1,0 +1,60 @@
+{% extends 'cafe/base.html' %}
+
+{% block content %}
+{% load static %}
+<header class="bg-cool py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Cart Summary</h1>
+            <p class="lead fw-normal text-white-50 mb-0">View Your Cart...</p>
+        </div>
+    </div>
+</header>
+
+<body>
+    <div class="cart-summary-container mb-5 mt-5 rounded">
+        <h3>Cart Summary</h3>
+        <br>
+        {% if cart_items %}
+            {% for cart_item in cart_items %}
+            <div id="item-{{cart_item.slug}}" class="cart-item">
+                {{cart_item.name}}
+                {% if cart_item.is_offer %}
+                    <strong>Bought @ksh {{cart_item.selling_price}}</strong>
+                {% else %}
+                    <strong>Bought @ksh {{cart_item.price}}</strong>
+                {% endif %}
+                    <a class="btn btn-sm btn-trans-danger delete-button" data-product="{{cart_item.slug}}">Remove</a>
+            </div>
+                <br>
+                <br>
+            {% endfor %}
+                
+            {% if total_quantity %}
+                <p id="total_quantity">Total Items: {{total_quantity}}</p>
+                <p id="total_price">total Price: {{ price }}</p>
+            {% else %}
+                <p>Total Items: 0 </p>
+            {% endif %}
+        
+        {% else %}
+
+            {% if total_quantity %}
+            <p>Total Items: {{total_quantity}}</p>
+            {% else %}
+            <p>Total Items: 0 </p>
+            {% endif %}
+
+        {% endif %}
+        {% if total_quantity > 0 %}
+        <form action="{% url 'place-order' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="phone" class="rounded" placeholder="phone number">
+            <button type="submit" id="place-order-btn" class="btn btn-sm btn-trans">Place Order</button>
+        </form>
+        {% endif %}
+        
+    </div>
+
+</body>
+{% endblock %}

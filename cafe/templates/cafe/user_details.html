@@ -1,0 +1,11 @@
+{% extends 'cafe/base.html' %}
+
+{% block content %}
+{% load static %}
+   <div class="user-details margin-from-fixed-top">
+    <h2>{{ current_user.first_name}} Details</h2>
+    <h3> email: {{ current_user.email }}</h3>
+    <h3>phone: {{ current_user.phone }}</h3>
+    <a href="{% url 'update-user' %}" class="btn btn-sm ml btn-trans mt-3">Update info</a>  
+   </div>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MJ Kitchen Home Page</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+
+
+<body class="body-cool">
+     {% include 'cafe/navbar.html' %}
+    <!-- Header-->
+
+    {% for message in messages %}
+
+        <div class="alert alert-warning alert-dismissible fade show bg-light alert--color mb-2 margin-from-fixed-top " role="alert">
+            <strong>{{ message }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    {% endfor %}
+
+    {% block content %}
+
+    {% endblock %}
+    <!-- Footer-->
+    <footer class="py-5 nav-cool">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; mj kitchen 2024</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+<script>
+    function updateCartQuantity() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/cart_items/', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var cartQuantity = response.cart_quantity;
+                    var totalPrice = response.price
+                    document.getElementById('cart-quantity').innerText = cartQuantity;
+                    document.getElementById('total_price').innerText = `Total price: ${price}`;
+                } else {
+                    console.error('Error fetching cart quantity');
+                }
+            }
+        };
+        xhr.send();
+
+    window.onload = updateCartQuantity;
+    }
+    // Attach event listener to delete buttons
+        // document.querySelectorAll('.delete-button').forEach(button => {
+        //     button.addEventListener('click', async () => {
+        //         const itemSlug = button.dataset.itemSlug;
+
+        //         try {
+        //             const response = await fetch(`/delete_item/${itemSlug}`, {
+        //                 method: 'DELETE'
+        //             });
+
+        //             if (response.ok) {
+        //                 // Remove the item from the UI
+        //                 button.closest('.cart-item').remove();
+        //                 document.getElementById('cart-quantity').innerText = response.cart_quantity
+        //             } else {
+                     
+        //             }
+        //         } catch (error) {
+        //             console.error('Error:', error);
+        //         }
+        //     });
+        // });
+    $(document).ready(function () {
+            $(".delete-button").on("click", async function () {
+                let item_slug = $(this).attr("data-product");
+                let this_val = $(this);
+
+                console.log("product slug", item_slug);
+
+                try {
+                    // Using async/await to make the AJAX request
+                    let response = await $.ajax({
+                        type: 'POST',
+                        url: '/cart/cart_delete/',
+                        data: {
+                            'item_slug': item_slug,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        }
+                    });
+
+                    // Handle the response
+                    if (response.success) {
+                        // Remove the item from the UI
+                        $('#item-' + item_slug).remove();
+                        var cartQuantity = response.cart_quantity;
+                        document.getElementById('cart-quantity').innerText = cartQuantity;
+                        var tottalQuantity = response.cart_quantity
+                        var price = response.price
+                        if (tottalQuantity) {
+                            document.getElementById('total_quantity').innerText = `Total items: ${tottalQuantity}`;
+                            document.getElementById('total_price').innerText = `Total price: ${price}`;
+                        } else {
+                            document.getElementById('total_quantity').innerText = '';
+                            document.getElementById('total_price').innerText = '';
+                            document.getElementById('place-order-btn').disabled = true
+                        }
+
+                    } else {
+                        alert('Failed to delete item: ' + response.error);
+                    }
+                } catch (error) {
+                    console.error('Error occurred:', error);
+                }
+            });
+        });
+
+</script>
+
+</body>
+
+</html>

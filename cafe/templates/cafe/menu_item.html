@@ -1,0 +1,45 @@
+{% extends 'cafe/base.html' %}
+
+{% block content %}
+
+        <div class="card menu-item" style="max-width: 750px; margin-top: 15%; margin-bottom: 15%;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ menuitem.image.url }}" class="card-img-top" alt="{{ menuitem.name }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                       
+                    </div>
+                    <br>
+                    {% if menuitem.is_offer %}
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ menuitem.name }}</h5>
+                            <p class="card-text"><strong>Type</strong>  {{ menuitem.category }}</p>
+                            <!-- Product price-->
+                            <strike><strong >Price</strong>  {{ menuitem.price }}</strike>
+                            &nbsp;&nbsp;<strong>Selling Price</strong>{{ menuitem.selling_price }}
+
+                            <a href="{% url 'home' %}" class="btn btn-sm btn-trans">Home</a>
+                            
+
+                        </div>
+                    {% else %}
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ menuitem.name }}</h5>
+                            <p class="card-text"><strong>Type</strong>  {{ menuitem.category }}</p>
+                            <!-- Product price-->
+                            <strong>Price</strong> {{ menuitem.price }}
+                            <a href="{% url 'home' %}" class="btn btn-sm btn-trans">Home</a>
+                          
+
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+

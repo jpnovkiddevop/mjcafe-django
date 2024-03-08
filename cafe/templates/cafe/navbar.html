@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Navigation-->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light nav-cool ">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand mj-logo" href="{% url 'home' %}">MJ KItchen</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item {% if request.path == '/search/' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'search' %}">Search</a>
+                    </li>
+                    <li class="nav-item {% if request.path == '/about/' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                 
+                    {% if user.is_authenticated %}
+
+                        {% if user.is_superuser %}
+                           <li class="nav-item"><a class="nav-link" href="{% url 'add-menu' %}">Add Menu</a></li>
+                        {% endif %}
+
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>   
+                        <li class="nav-item"><a class="nav-link" href="{% url 'update-user' %}">Profile</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'home' %}">All Food Items</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'coffee' %}">Coffee</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'snacks' %}">Snacks</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'milkshakes' %}">Milk shakes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'juice' %}">Juice</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'cocktail' %}">Cocktails</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'mocktail' %}">Mocktails</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'snacks' %}">Snacks</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            
+                   
+                                      <!-- <button type="button" class="btn btn-lg btn-default">button</button>
+                    <a href="{% url 'cart-summary' %}" class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        {{ cart }}
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-quantity"></span>
+                    </a>
+               
+                 
+                 -->
+                <a href="{% url 'cart-summary' %}" class="btn cart-cool btn-trans" type="submit">
+                    shopping Cart
+                    {% if total_quantity %}
+                        <strong id="cart-quantity" class="cart-display">{{ total_quantity }}</strong>
+                    {% else %}
+                        <strong id="cart-quantity"  class="cart-display">0</strong>
+                    {% endif %}
+                </a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'user_details' user.customer.slug %}" class="user-profile">{{ user.username }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,16 @@
+siri.py
+# Python cache files
+*.pyc
+__pycache__/
+
+# Database files
+db.sqlite3
+
+# Media uploads
+media/uploads/
+
+cafe/__pycache__/
+cafe/migrations/__pycache__/
+cart/__pycache__/
+mjcafe/__pycache__/
+staticfiles

@@ -1,0 +1,77 @@
+{% extends 'cafe/base.html' %}
+
+{% block content %}
+{% load static %}
+    <header class="bg-cool py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">About MJ kitchen</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Take your time to know us</p>
+            </div>
+        </div>
+    </header>
+
+<body>
+    <div class="row">
+        <div class="col-10">
+            <center class="mt-4 mb-4">
+                <h3 class="text-white-50">Karibu</h3>
+                <main class="main">
+                    <section class="about-section">
+                        <div>
+                            <h4 class="text-white-50">Genesis</h4>
+                            <p>
+                                MJ kitchen was created to bridge the gap
+                                between quality snacks and service time in the food industry.
+                                the joy of ordering and getting a super prepared snack in five minutes
+                                is unmatched. we are passionate about providing you with an experience that makes your day
+                                brighter!
+                                That what we aim for every single day and give you the smile you deserve!.
+                                we thrive in keeping timely order delivery..
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="text-white-50">Why choose Mj</h4>
+                            <p>
+                                We pride ourself in offering outstanding service
+                                and preparing mouth watering snacks for all.
+                                Our team is made up of passionate individuals who are dedicated
+                                to providing an exceptional outdoor food experience.
+                                Our menu is pocket friendly and quantities match your pocket anyday.
+                                We run weekly offers and today might be your lucky day, cheers !.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="text-white-50">Purpose</h4>
+                            <p>
+                                We believe in charging reasonable prices for quality food and drinks.
+                                We want everyone to enjoy their meals or snacks without breaking the bank.
+                                We also believe that food should not only taste good but be healthy too.
+                                So, at MJ Kitchen, we source ingredients from local farmers and suppliers
+                                ensuring that every bite is as healthy as it can get.
+                            </p>
+                        </div>
+
+                    </section>
+                    <aside class="about-aside">
+                        <h4 class="text-white-50">Our <strong class="rank">*****</strong> Chefs</h4>
+                        <div class="chefs-details">
+                            <img src="{% static 'assets/images/chef.jpg' %}" alt="chef on duty">
+                        </div>
+                        <div class="chefs-details">
+                            <img src="{% static 'assets/images/snackschef.jpg' %}" alt="chef in the kitchen">
+                        </div>
+                        <div class="chefs-details">
+                            <img src="{% static 'assets/images/barista.jpg' %}" alt="barista preparing coffee">
+                        </div>
+                    </aside>
+                </main>
+            </center>
+
+        </div>
+    </div>
+</body>
+
+
+
+{% endblock %}

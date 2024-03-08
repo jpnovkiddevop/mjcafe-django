@@ -1,0 +1,22 @@
+{% extends 'cafe/base.html' %}
+
+{% block content %}
+<center>
+    <div class="row mb-5 margin-from-fixed-top ">
+        <div class="col-8">
+            
+                <form method="POST" action="{% url 'login' %}" class="p-4 p-md-5 border rounded-3  form-margin">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="username" placeholder="username">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" name="password"  placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Login</button>
+                </form>
+        
+        </div>
+    </div>
+</center>
+{% endblock %}
